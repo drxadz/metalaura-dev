@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,20 +6,20 @@
 
 :root {
   --foreground-rgb: 45, 45, 45;
-  --background-start-rgb: 242, 248, 252;
-  --background-end-rgb: 232, 244, 248;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222.2 84% 4.9%;
     --muted: 210 40% 96%;
@@ -31,7 +31,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-    --radius: 1rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -40,11 +40,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-marble text-dark-graphite font-inter;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(74,144,226,0.1) 0%, transparent 50%),
-      linear-gradient(135deg, #f2f8fc 0%, #e8f4f8 25%, #f2f8fc 50%, #e8f4f8 75%, #f2f8fc 100%);
+    @apply bg-white text-gray-900 font-inter;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -55,60 +51,47 @@
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl;
-  }
-  
-  .glass-button {
-    @apply bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl px-8 py-4 
-           transition-all duration-300 hover:bg-white/30 hover:scale-105 
-           hover:shadow-2xl active:scale-95;
-  }
-  
-  .metal-gradient {
-    background: linear-gradient(135deg, #E8E8E8 0%, #F5F5F5 25%, #CCCCCC 50%, #F5F5F5 75%, #E8E8E8 100%);
-  }
-  
-  .shimmer-effect {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-  }
-  
-  .floating-animation {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(2deg); }
-  }
-  
-  .text-gradient {
-    background: linear-gradient(135deg, #2D2D2D 0%, #4A90E2 50%, #2D2D2D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .perspective-card {
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-  }
-  
-  .perspective-card:hover {
-    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
-  }
-  
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   
   .scroll-reveal.revealed {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .hero-3d-bg {
+    background-image: url('/images/hero-bg-3.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: perspective(1000px) rotateX(5deg) scale(1.1);
+    transform-origin: center center;
+    animation: hero-3d-float 20s ease-in-out infinite;
+  }
+
+  @keyframes hero-3d-float {
+    0%, 100% {
+      transform: perspective(1000px) rotateX(5deg) scale(1.1) translateY(0px);
+    }
+    50% {
+      transform: perspective(1000px) rotateX(3deg) scale(1.15) translateY(-10px);
+    }
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+
+  .hero-text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -118,23 +101,22 @@
   }
 }
 
-/* Custom scrollbar */
+/* Simple scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(242, 248, 252, 0.1);
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(74, 144, 226, 0.3);
+  background: #c1c1c1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(74, 144, 226, 0.5);
+  background: #a8a8a8;
 }
 
 /* Hide Next.js badge and error messages */
