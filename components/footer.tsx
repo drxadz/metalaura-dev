@@ -15,7 +15,7 @@ import {
 export default function Footer() {
   const handleWhatsApp = () => {
     const message = "Hello! I'm interested in your aluminium staircase services."
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/919995282885?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
 
@@ -152,10 +152,10 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-white/60 mt-0.5" />
                 <div>
                   <a 
-                    href="tel:+919876543210" 
+                    href="tel:+919995282885" 
                     className="text-white/70 hover:text-white transition-colors font-light text-sm"
                   >
-                    +91 98765 43210
+                    +91 99952 82885
                   </a>
                 </div>
               </div>

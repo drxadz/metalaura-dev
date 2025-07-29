@@ -39,7 +39,7 @@ export default function ContactSection() {
 
   const handleWhatsApp = () => {
     const message = "Hello! I'm interested in your aluminium staircase services."
-    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/919995282885?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
 
@@ -176,10 +176,10 @@ export default function ContactSection() {
                 <div>
                   <h4 className="text-white font-light mb-1">Phone</h4>
                   <a 
-                    href="tel:+919876543210" 
+                    href="tel:+919995282885" 
                     className="text-white/70 hover:text-white transition-colors"
                   >
-                    +91 98765 43210
+                    +91 99952 82885
                   </a>
                 </div>
               </div>
