@@ -22,56 +22,59 @@ export default function Navigation() {
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Quote', href: '#quote' },
+    { name: 'Gallery', href: '#gallery' },
+    { name: 'Materials', href: '#materials' },
     { name: 'Contact', href: '#contact' },
   ]
 
   return (
     <>
-      {/* Minimal Navigation */}
+      {/* Premium Dark Navigation */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200' : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled 
+            ? 'bg-black/95 backdrop-blur-xl border-b border-white/10' 
+            : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-900 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-sm">M</span>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-white rounded-sm flex items-center justify-center">
+                <span className="text-black font-bold text-lg">M</span>
               </div>
-              <span className="text-gray-900 font-medium">MetaLaura</span>
+              <span className="text-white font-light text-lg tracking-wider">METAL AURA</span>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-12">
               {navItems.map((item) => (
-                <a
+                <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                  className="text-white/70 hover:text-white transition-all duration-300 font-light text-sm tracking-wider relative group"
                   onClick={() => console.log(`Navigation clicked: ${item.name}`)}
+                  whileHover={{ y: -2 }}
                 >
                   {item.name}
-                </a>
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
+                </motion.a>
               ))}
             </div>
 
             {/* CTA Button */}
             <div className="hidden md:flex items-center">
               <Button 
-                className="bg-gray-900 text-white px-4 py-2 text-sm hover:bg-gray-800"
+                className="bg-white text-black px-6 py-3 text-sm font-medium hover:bg-white/90 transition-all duration-300"
                 onClick={() => {
-                  console.log("Get Quote button clicked")
-                  document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })
+                  console.log("Start Project button clicked")
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
                 }}
               >
-                Get Quote
+                Start Project
               </Button>
             </div>
 
@@ -79,10 +82,10 @@ export default function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="md:hidden text-white hover:bg-white/10"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
@@ -94,9 +97,9 @@ export default function Navigation() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-t border-gray-200"
+              className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10"
             >
-              <div className="px-4 py-6 space-y-4">
+              <div className="px-6 py-8 space-y-6">
                 {navItems.map((item, index) => (
                   <motion.a
                     key={item.name}
@@ -104,7 +107,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="block text-gray-600 hover:text-gray-900 transition-colors text-lg"
+                    className="block text-white/70 hover:text-white transition-colors text-lg font-light tracking-wider"
                     onClick={() => {
                       setIsOpen(false)
                       console.log(`Mobile navigation clicked: ${item.name}`)
@@ -114,14 +117,14 @@ export default function Navigation() {
                   </motion.a>
                 ))}
                 <Button 
-                  className="w-full bg-gray-900 text-white mt-4"
+                  className="w-full bg-white text-black mt-6 font-medium"
                   onClick={() => {
                     setIsOpen(false)
-                    console.log("Mobile Get Quote button clicked")
-                    document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })
+                    console.log("Mobile Start Project button clicked")
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
                   }}
                 >
-                  Get Quote
+                  Start Project
                 </Button>
               </div>
             </motion.div>
