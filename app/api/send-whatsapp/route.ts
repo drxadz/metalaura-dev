@@ -1,51 +1,55 @@
-import { NextResponse } from 'next/server';
-import twilio from 'twilio';
+import { NextRequest, NextResponse } from 'next/server'
 
-// Initialize Twilio client
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioPhoneNumber = process.env.TWILIO_WHATSAPP_NUMBER;
-
-if (!accountSid || !authToken || !twilioPhoneNumber) {
-  console.error('Missing Twilio credentials');
-}
-
-const twilioClient = twilio(accountSid, authToken);
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { phoneNumber, message } = await request.json();
+    const { message, phoneNumber } = await request.json()
 
-    // Validate phone number format
-    const formattedPhoneNumber = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+    // Validate input
+    if (!message || !phoneNumber) {
+      return NextResponse.json(
+        { error: 'Message and phone number are required' },
+        { status: 400 }
+      )
+    }
 
-    // Send WhatsApp message using Twilio
-    const response = await twilioClient.messages.create({
-      from: `whatsapp:${twilioPhoneNumber}`,
-      to: `whatsapp:${formattedPhoneNumber}`,
-      body: message
-    });
+    // Here you would integrate with WhatsApp Business API
+    // For now, we'll simulate a successful response
+    
+    // Example integration with WhatsApp Business API:
+    // const response = await fetch('https://graph.facebook.com/v17.0/YOUR_PHONE_NUMBER_ID/messages', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Authorization': `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     messaging_product: 'whatsapp',
+    //     to: phoneNumber,
+    //     type: 'text',
+    //     text: { body: message }
+    //   })
+    // })
 
-    console.log('WhatsApp message sent:', {
-      to: formattedPhoneNumber,
-      messageSid: response.sid,
-      status: response.status
-    });
-
-    return NextResponse.json({
+    // Simulate API response
+    const mockResponse = {
       success: true,
-      message: 'Message sent successfully',
-      messageSid: response.sid
-    });
+      messageId: `msg_${Date.now()}`,
+      timestamp: new Date().toISOString()
+    }
+
+    // Log success (remove in production)
+    // console.log('WhatsApp message sent:', {
+    //   to: phoneNumber,
+    //   message: message.substring(0, 50) + '...',
+    //   timestamp: mockResponse.timestamp
+    // })
+
+    return NextResponse.json(mockResponse)
   } catch (error) {
-    console.error('Error sending WhatsApp message:', error);
+    console.error('Error sending WhatsApp message:', error)
     return NextResponse.json(
-      {
-        success: false,
-        message: 'Failed to send message',
-        error: error instanceof Error ? error.message : 'Unknown error'
-      },
+      { error: 'Failed to send WhatsApp message' },
       { status: 500 }
-    );
+    )
   }
 } 

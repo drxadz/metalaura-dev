@@ -4,370 +4,352 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { 
-  FolderOpen, 
-  ExternalLink, 
-  Calendar, 
-  MapPin, 
-  Filter,
-  Grid3X3,
-  List,
-  Eye,
-  ArrowLeft
-} from 'lucide-react'
-import Link from 'next/link'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 
-export default function PortfolioPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+interface Project {
+  id: number
+  title: string
+  category: string
+  image: string
+  description: string
+  specs: {
+    material: string
+    finish: string
+    railing: string
+    height: string
+    diameter?: string
+    width?: string
+    radius?: string
+  }
+  features: string[]
+}
 
-  const categories = ['All', 'Commercial', 'Residential', 'Industrial', 'Architectural']
-  
-  const projects = [
-    {
-      id: 1,
-      title: "Modern Office Complex Facade",
-      category: "Commercial",
-      location: "Downtown Metro",
-      year: "2024",
-      description: "A state-of-the-art aluminum facade system for a 20-story office building, featuring integrated solar panels and advanced ventilation systems. The project showcases our expertise in large-scale commercial applications with a focus on sustainability and energy efficiency.",
-      longDescription: "This landmark project represents a breakthrough in sustainable building design. The facade incorporates photovoltaic panels that generate 30% of the building's energy needs, while the innovative ventilation system reduces HVAC costs by 25%. The aluminum framework was custom-engineered to support the weight of the solar panels while maintaining structural integrity.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop"
-      ],
-      features: ["Solar Integration", "Energy Efficient", "Weather Resistant", "Modern Design"],
-      specifications: {
-        area: "25,000 sq ft",
-        materials: "Premium Aluminum Alloy, Tempered Glass",
-        completion: "6 months",
-        sustainability: "LEED Platinum Certified"
-      },
-      challenges: "The main challenge was integrating the solar panels with the aluminum framework while maintaining the building's aesthetic appeal. We developed a custom mounting system that seamlessly blends with the facade design.",
-      solutions: "Our team created a proprietary aluminum extrusion profile that serves both structural and aesthetic purposes, allowing for easy installation and maintenance of the solar panels."
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Modern Spiral Staircase",
+    category: "Residential",
+    image: "/images/projects/project1.jpg",
+    description: "A stunning spiral staircase featuring brushed aluminium construction with glass railings. This custom design seamlessly integrates with the modern interior, providing both functionality and aesthetic appeal.",
+    specs: {
+      material: "Brushed Aluminium",
+      finish: "Matte",
+      railing: "Tempered Glass",
+      height: "3.2m",
+      diameter: "2.1m"
     },
-    {
-      id: 2,
-      title: "Luxury Residential Railings",
-      category: "Residential",
-      location: "Beverly Hills",
-      year: "2024",
-      description: "Custom-designed aluminum railings with glass panels for a modern luxury home, featuring panoramic views and seamless integration with the architectural design. The project demonstrates our ability to combine aesthetics with functionality.",
-      longDescription: "This luxury residence required railings that would provide safety without compromising the stunning views. We designed a system that uses minimal aluminum framework with large glass panels, creating an almost invisible barrier that maintains the home's architectural integrity.",
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
-      ],
-      features: ["Custom Design", "Glass Integration", "Corrosion Resistant", "Premium Finish"],
-      specifications: {
-        length: "200 linear feet",
-        materials: "Marine-grade Aluminum, Tempered Glass",
-        finish: "Custom Anodized",
-        warranty: "25 years"
-      },
-      challenges: "The main challenge was creating a railing system that would withstand coastal weather conditions while maintaining its aesthetic appeal.",
-      solutions: "We used marine-grade aluminum with a custom anodized finish that provides superior corrosion resistance while maintaining the desired aesthetic."
+    features: ["Custom Design", "LED Integration", "Anti-slip Treads", "Sound Dampening"]
+  },
+  {
+    id: 2,
+    title: "Industrial Floating Stairs",
+    category: "Commercial",
+    image: "/images/projects/project2.jpg",
+    description: "Industrial-style floating stairs with exposed aluminium framework. Perfect for modern office spaces and commercial environments, combining raw materials with refined execution.",
+    specs: {
+      material: "Raw Aluminium",
+      finish: "Industrial",
+      railing: "Cable System",
+      height: "4.5m",
+      width: "1.8m"
     },
-    {
-      id: 3,
-      title: "Industrial Storage Systems",
-      category: "Industrial",
-      location: "Manufacturing District",
-      year: "2023",
-      description: "Heavy-duty aluminum storage racks and conveyor systems for an automated warehouse facility, designed for maximum efficiency and durability. The project showcases our expertise in industrial applications.",
-      longDescription: "This comprehensive storage solution includes custom-designed aluminum racks, automated conveyor systems, and specialized handling equipment. The system was designed to optimize space utilization while ensuring easy access to stored items.",
-      image: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop"
-      ],
-      features: ["Heavy Duty", "Automated Compatible", "Modular Design", "High Capacity"],
-      specifications: {
-        capacity: "50,000 kg per rack",
-        automation: "Fully Automated",
-        maintenance: "Low Maintenance Design",
-        safety: "OSHA Compliant"
-      },
-      challenges: "The main challenge was designing a system that could handle heavy loads while maintaining flexibility for future modifications.",
-      solutions: "We developed a modular system with standardized components that can be easily reconfigured as storage needs change."
+    features: ["Floating Design", "Cable Railings", "Industrial Finish", "Load Bearing"]
+  },
+  {
+    id: 3,
+    title: "Luxury Curved Staircase",
+    category: "Luxury",
+    image: "/images/projects/project3.jpg",
+    description: "An elegant curved staircase with premium aluminium construction and sophisticated lighting integration. This piece serves as the centerpiece of a luxury residential project.",
+    specs: {
+      material: "Premium Aluminium",
+      finish: "Polished",
+      railing: "Stainless Steel",
+      height: "5.2m",
+      radius: "3.8m"
     },
-    {
-      id: 4,
-      title: "Airport Terminal Canopy",
-      category: "Architectural",
-      location: "International Airport",
-      year: "2023",
-      description: "Massive aluminum canopy structure providing weather protection for terminal entrance and passenger areas, combining architectural beauty with structural engineering excellence.",
-      longDescription: "This iconic canopy structure spans the entire terminal entrance, providing shelter for passengers while creating a striking architectural feature. The design incorporates advanced engineering to withstand extreme weather conditions.",
-      image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop"
-      ],
-      features: ["Large Span", "Weather Protection", "Architectural Beauty", "Structural Engineering"],
-      specifications: {
-        span: "150 meters",
-        materials: "Aerospace-grade Aluminum",
-        windLoad: "150 mph",
-        snowLoad: "50 psf"
-      },
-      challenges: "The main challenge was creating a structure that could span such a large distance while maintaining its aesthetic appeal.",
-      solutions: "We used aerospace-grade aluminum with a custom-designed support system that distributes loads efficiently while maintaining visual lightness."
+    features: ["Curved Design", "Premium Finish", "Integrated Lighting", "Custom Railings"]
+  },
+  {
+    id: 4,
+    title: "Minimalist Straight Stairs",
+    category: "Modern",
+    image: "/images/hero-bg-1.jpeg",
+    description: "Clean, minimalist straight stairs with hidden aluminium framework. Perfect for contemporary homes seeking a seamless integration with modern interiors.",
+    specs: {
+      material: "Aluminium Frame",
+      finish: "Powder Coated",
+      railing: "Minimalist",
+      height: "3.6m",
+      width: "1.2m"
     },
-    {
-      id: 5,
-      title: "Shopping Mall Atrium",
-      category: "Architectural",
-      location: "City Center",
-      year: "2023",
-      description: "Stunning aluminum and glass atrium with integrated lighting and climate control systems, creating a modern and inviting space for shoppers.",
-      longDescription: "This architectural masterpiece combines aluminum framework with glass panels to create a light-filled atrium that serves as the centerpiece of the shopping mall. The design incorporates advanced lighting and climate control systems.",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop"
-      ],
-      features: ["Glass Integration", "LED Lighting", "Climate Control", "Aesthetic Design"],
-      specifications: {
-        height: "40 meters",
-        materials: "Structural Aluminum, Laminated Glass",
-        lighting: "LED Integration",
-        climate: "Automated Control"
-      },
-      challenges: "The main challenge was creating a structure that would provide natural light while maintaining comfortable temperatures.",
-      solutions: "We developed a system of automated louvers and integrated LED lighting that adjusts based on natural light levels and temperature."
+    features: ["Hidden Framework", "Minimalist Design", "Powder Coated", "Easy Maintenance"]
+  },
+  {
+    id: 5,
+    title: "Outdoor Spiral Staircase",
+    category: "Exterior",
+    image: "/images/hero-bg-2.jpeg",
+    description: "Weather-resistant outdoor spiral staircase designed for coastal environments. Features corrosion-resistant aluminium with specialized coatings for long-term durability.",
+    specs: {
+      material: "Marine Grade Aluminium",
+      finish: "Corrosion Resistant",
+      railing: "Stainless Steel",
+      height: "4.8m",
+      diameter: "2.4m"
     },
-    {
-      id: 6,
-      title: "Residential Window Systems",
-      category: "Residential",
-      location: "Suburban Community",
-      year: "2024",
-      description: "Energy-efficient aluminum window systems for a 50-unit residential development, combining modern aesthetics with superior performance.",
-      longDescription: "This comprehensive window system was designed for a new residential development, focusing on energy efficiency and noise reduction. The project demonstrates our ability to deliver large-scale residential solutions.",
-      image: "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop"
-      ],
-      features: ["Energy Efficient", "Noise Reduction", "Security Features", "Low Maintenance"],
-      specifications: {
-        units: "200 windows",
-        materials: "Thermal Break Aluminum",
-        glazing: "Double Glazed",
-        efficiency: "U-value 1.1"
-      },
-      challenges: "The main challenge was creating a window system that would meet strict energy efficiency requirements while maintaining security and ease of use.",
-      solutions: "We developed a custom thermal break system combined with advanced glazing that exceeds energy efficiency standards while providing superior security features."
-    }
-  ]
+    features: ["Weather Resistant", "Marine Grade", "Anti-corrosion", "UV Protected"]
+  },
+  {
+    id: 6,
+    title: "Commercial Mezzanine Stairs",
+    category: "Commercial",
+    image: "/images/hero-bg-3.jpeg",
+    description: "Heavy-duty commercial mezzanine stairs designed for high-traffic environments. Built to withstand industrial use while maintaining aesthetic appeal.",
+    specs: {
+      material: "Industrial Aluminium",
+      finish: "Durable Coating",
+      railing: "Industrial Grade",
+      height: "6.2m",
+      width: "2.4m"
+    },
+    features: ["Heavy Duty", "High Traffic", "Industrial Grade", "Safety Compliant"]
+  }
+]
 
-  const filteredProjects = selectedCategory === 'All' 
+const categories = ["All", "Residential", "Commercial", "Luxury", "Modern", "Exterior"]
+
+export default function Portfolio() {
+  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  const filteredProjects = selectedCategory === "All" 
     ? projects 
     : projects.filter(project => project.category === selectedCategory)
 
+  const handleBackToHome = () => {
+    window.history.back()
+  }
+
   return (
-    <main className="min-h-screen pt-20 pb-20 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-metallic-blue/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-silver-mist/10 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Button */}
-        <Link href="/">
-          <Button
-            variant="ghost"
-            className="mb-8 glass-button hover:bg-white/20"
+    <div className="min-h-screen bg-black">
+      {/* Header */}
+      <div className="relative py-20 bg-gradient-to-b from-black via-black/95 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back Button */}
+          <motion.button
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={handleBackToHome}
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-8"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4" />
             Back to Home
-          </Button>
-        </Link>
+          </motion.button>
 
-        {/* Page Header */}
-        <div className="text-center mb-16">
+          {/* Header Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 glass-card px-6 py-3 mb-6"
+            className="text-center"
           >
-            <FolderOpen className="w-5 h-5 text-metallic-blue" />
-            <span className="text-dark-graphite font-inter font-medium">Our Portfolio</span>
+            <div className="inline-flex items-center gap-2 text-white/60 text-sm font-light mb-8 tracking-wider">
+              <div className="w-8 h-px bg-white/30"></div>
+              <span>OUR WORK</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight">
+              <span className="text-white/90">Our</span>
+              <br />
+              <span className="text-white/80">Portfolio</span>
+            </h1>
+            
+            <p className="text-xl text-white/70 font-light max-w-3xl mx-auto leading-relaxed">
+              Explore our collection of custom aluminium staircases, each crafted with precision 
+              and designed to transform spaces with architectural elegance.
+            </p>
           </motion.div>
-
-          <h1 className="text-4xl md:text-6xl font-orbitron font-bold text-gradient mb-6">
-            Our
-            <br />
-            <span className="text-metallic-blue">Projects</span>
-          </h1>
-
-          <p className="text-xl text-dark-graphite/80 font-inter max-w-3xl mx-auto leading-relaxed">
-            Explore our extensive portfolio of aluminum fabrication projects, 
-            showcasing our expertise and commitment to excellence.
-          </p>
         </div>
+      </div>
 
-        {/* Filters and Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Button
+      {/* Category Filter */}
+      <div className="py-12 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category, index) => (
+              <motion.button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                className={`glass-button transition-all duration-300 ${
-                  selectedCategory === category 
-                    ? 'bg-metallic-blue/30 text-dark-graphite border-metallic-blue/40' 
-                    : 'border-white/30 hover:bg-white/20'
-                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
                 onClick={() => setSelectedCategory(category)}
+                className={`px-6 py-3 rounded-full text-sm font-light transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-white text-black'
+                    : 'bg-white/10 text-white/70 hover:text-white hover:bg-white/20'
+                }`}
               >
-                <Filter className="w-4 h-4 mr-2" />
                 {category}
-              </Button>
+              </motion.button>
             ))}
           </div>
-
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2 glass-card p-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`transition-all duration-300 ${
-                viewMode === 'grid' ? 'bg-metallic-blue/20' : ''
-              }`}
-              onClick={() => setViewMode('grid')}
-            >
-              <Grid3X3 className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`transition-all duration-300 ${
-                viewMode === 'list' ? 'bg-metallic-blue/20' : ''
-              }`}
-              onClick={() => setViewMode('list')}
-            >
-              <List className="w-4 h-4" />
-            </Button>
-          </div>
         </div>
+      </div>
 
-        {/* Projects Grid/List */}
-        <motion.div
-          key={`${selectedCategory}-${viewMode}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className={
-            viewMode === 'grid' 
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              : "space-y-8"
-          }
-        >
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className={`group glass-card border-0 overflow-hidden hover:shadow-2xl transition-all duration-500 h-full ${
-                viewMode === 'list' ? 'md:flex md:h-auto' : ''
-              }`}>
-                <CardContent className="p-0">
-                  {/* Project Image */}
-                  <div className={`relative overflow-hidden ${
-                    viewMode === 'list' ? 'md:w-1/3' : 'aspect-[4/3]'
-                  }`}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  </div>
-
-                  {/* Project Info */}
-                  <div className={`p-6 ${viewMode === 'list' ? 'md:w-2/3' : ''}`}>
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 bg-metallic-blue/20 text-metallic-blue rounded-full text-xs font-inter font-medium">
+      {/* Projects Grid */}
+      <div className="py-20 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="group cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
+                <Card className="bg-white/5 border-white/10 backdrop-blur-sm overflow-hidden group-hover:bg-white/10 transition-all duration-300">
+                  <CardContent className="p-0">
+                    <div className="relative overflow-hidden">
+                      <div 
+                        className="aspect-[4/3] bg-cover bg-center bg-no-repeat group-hover:scale-105 transition-transform duration-500"
+                        style={{
+                          backgroundImage: `url(${project.image})`,
+                          filter: 'brightness(0.8) contrast(1.1) saturate(0.9)'
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-light">
                           {project.category}
                         </span>
                       </div>
-
-                      <h3 className="text-xl font-orbitron font-bold text-dark-graphite mb-3 group-hover:text-metallic-blue transition-colors">
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-white font-light text-xl mb-3 group-hover:text-white/90 transition-colors">
                         {project.title}
                       </h3>
-
-                      <p className="text-dark-graphite/80 font-inter mb-4 leading-relaxed">
+                      <p className="text-white/70 font-light text-sm leading-relaxed mb-4">
                         {project.description}
                       </p>
-
-                      <div className="flex items-center gap-4 text-sm text-dark-graphite/70 mb-4">
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {project.location}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {project.year}
-                        </div>
-                      </div>
-
-                      {/* Specifications */}
-                      <div className="mb-4">
-                        <h4 className="text-sm font-inter font-medium text-dark-graphite mb-2">Specifications:</h4>
-                        <div className="grid grid-cols-2 gap-2">
-                          {Object.entries(project.specifications).map(([key, value]) => (
-                            <div key={key} className="text-xs text-dark-graphite/70">
-                              <span className="font-medium">{key}:</span> {value}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
+                      
                       {/* Features */}
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {project.features.map((feature, featureIndex) => (
-                          <span
-                            key={featureIndex}
-                            className="px-2 py-1 bg-white/10 text-dark-graphite rounded text-xs font-inter"
+                        {project.features.slice(0, 2).map((feature, idx) => (
+                          <span 
+                            key={idx}
+                            className="px-2 py-1 bg-white/10 text-white/70 rounded text-xs font-light"
                           >
                             {feature}
                           </span>
                         ))}
                       </div>
-
-                      {/* Challenges & Solutions */}
-                      <div className="mb-4">
-                        <div className="text-xs text-dark-graphite/70">
-                          <span className="font-medium">Challenge:</span> {project.challenges}
-                        </div>
-                        <div className="text-xs text-dark-graphite/70 mt-1">
-                          <span className="font-medium">Solution:</span> {project.solutions}
-                        </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/50 text-xs font-light">
+                          View Details
+                        </span>
+                        <ExternalLink className="w-4 h-4 text-white/50 group-hover:text-white transition-colors" />
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
-    </main>
+
+      {/* Project Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-black border border-white/10 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          >
+            <div className="relative">
+              <div 
+                className="aspect-[16/9] bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url(${selectedProject.image})`,
+                  filter: 'brightness(0.8) contrast(1.1) saturate(0.9)'
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-xs font-light">
+                  {selectedProject.category}
+                </span>
+              </div>
+              
+              <h2 className="text-white font-light text-3xl mb-4">
+                {selectedProject.title}
+              </h2>
+              
+              <p className="text-white/70 font-light mb-6 leading-relaxed">
+                {selectedProject.description}
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Specifications */}
+                <div>
+                  <h4 className="text-white font-light text-lg mb-4">Specifications</h4>
+                  <div className="space-y-3">
+                    {Object.entries(selectedProject.specs).map(([key, value]) => (
+                      <div key={key} className="flex justify-between">
+                        <span className="text-white/60 font-light capitalize">
+                          {key.replace(/([A-Z])/g, ' $1').trim()}:
+                        </span>
+                        <span className="text-white font-light">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Features */}
+                <div>
+                  <h4 className="text-white font-light text-lg mb-4">Features</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {selectedProject.features.map((feature, idx) => (
+                      <span 
+                        key={idx}
+                        className="px-3 py-2 bg-white/10 text-white/70 rounded text-sm font-light"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 flex gap-4">
+                <Button className="bg-white text-black px-6 py-3 font-medium hover:bg-white/90 transition-all duration-300">
+                  Get Quote
+                </Button>
+                <Button variant="outline" className="border-white/30 text-white px-6 py-3 font-light hover:bg-white/10 transition-all duration-300">
+                  View Similar
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </div>
   )
 } 

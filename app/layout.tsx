@@ -1,15 +1,11 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Inter, Orbitron } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 
-const inter = Inter({ 
+const dmSans = DM_Sans({ 
   subsets: ["latin"],
-  variable: "--font-inter"
-});
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  variable: "--font-orbitron"
+  variable: "--font-dm-sans",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"]
 });
 
 export const metadata: Metadata = {
@@ -31,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${orbitron.variable} font-inter antialiased`}>
+      <body className={`${dmSans.variable} font-dm-sans antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
