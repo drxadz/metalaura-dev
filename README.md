@@ -4,6 +4,7 @@ New upadetes required
 -  Instagram Integration
 -  UI Fixation
 -  Real professional imamges
+-  buttons not working
 
 ## Business whatsapp
 - update with projects and catlogs
