@@ -6,7 +6,7 @@ import { ChevronDown } from 'lucide-react'
 
 export default function HeroSection() {
   const handleExploreProjects = () => {
-    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('used')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -82,7 +82,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 2.5 }}
+          transition={{ duration: 1, delay: 2.2 }}
         >
           <Button
             onClick={handleExploreProjects}

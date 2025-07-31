@@ -134,14 +134,14 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <div className="relative py-20 bg-gradient-to-b from-black via-black/95 to-black">
+      <div className="relative py-16 bg-gradient-to-b from-black via-black/95 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={handleBackToHome}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-8"
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -153,12 +153,12 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 text-white/60 text-sm font-light mb-8 tracking-wider">
+            <div className="inline-flex items-center gap-2 text-white/60 text-sm font-light mb-6 tracking-wider">
               <div className="w-8 h-px bg-white/30"></div>
               <span>OUR WORK</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-light text-white mb-6 leading-tight">
               <span className="text-white/90">Our</span>
               <br />
               <span className="text-white/80">Portfolio</span>
@@ -173,7 +173,7 @@ export default function Portfolio() {
       </div>
 
       {/* Category Filter */}
-      <div className="py-12 bg-black">
+      <div className="py-8 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category, index) => (
@@ -197,7 +197,7 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Grid */}
-      <div className="py-20 bg-black">
+      <div className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (

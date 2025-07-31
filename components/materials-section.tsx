@@ -28,14 +28,14 @@ const materials = [
 
 export default function MaterialsSection() {
   return (
-    <section className="py-32 relative bg-black">
+    <section id="materials" className="py-20 relative bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 text-white/60 text-sm font-light mb-8 tracking-wider">
             <div className="w-8 h-px bg-white/30"></div>

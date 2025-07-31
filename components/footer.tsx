@@ -20,15 +20,14 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer id="contact" className="bg-black border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Company Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2"
           >
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-10 h-10 bg-white rounded-sm flex items-center justify-center">
@@ -76,64 +75,12 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <h3 className="text-white font-light text-lg mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <a 
-                  href="#home" 
-                  className="text-white/70 hover:text-white transition-colors font-light"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#about" 
-                  className="text-white/70 hover:text-white transition-colors font-light"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#gallery" 
-                  className="text-white/70 hover:text-white transition-colors font-light"
-                >
-                  Gallery
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#materials" 
-                  className="text-white/70 hover:text-white transition-colors font-light"
-                >
-                  Materials
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#contact" 
-                  className="text-white/70 hover:text-white transition-colors font-light"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
           >
             <h3 className="text-white font-light text-lg mb-6">Contact</h3>
             <div className="space-y-4">
@@ -177,7 +124,7 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.2 }}
           className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
         >
           <p className="text-white/60 font-light text-sm">
